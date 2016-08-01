@@ -1,0 +1,10 @@
+----wiki.php -------
+
+Code takes commandline arguments -- php wiki.php [log filename] [search stream]  
+
+It aslo asks prameters later if they are not provide in the Interactive mode-- php wiki.php
+
+----wiki.py----------
+Code takes commandline arguments -- python wiki.py [log filename] [search stream]   
+
+It aslo asks prameters later if they are not provide in the Interactive mode -- python wiki.py
