@@ -7,11 +7,15 @@
 # Instructions
 
 ## Dependencies
-The following dependencies must be installed before using.
-1. phonenumbers -> `pip install phonenumbers`
-2. wikiapi -> `pip install wikiapi`
-3. slop -> `gem install slop`
-4. wikipedia-client -> `gem install wikipedia-client`
+The following dependencies must be installed before using: 
+
+1. phonenumbers -> `pip install phonenumbers` 
+
+2. wikiapi -> `pip install wikiapi` 
+
+3. slop -> `gem install slop` 
+
+4. wikipedia-client -> `gem install wikipedia-client` 
 
 Alternatively, run `dependency-install.sh`.
 
