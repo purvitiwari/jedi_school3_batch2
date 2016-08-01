@@ -1,0 +1,169 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var inquirer = require('inquirer');
+var request = require('request');
+var async = require('async');
+var fs = require('fs');
+var Progress = require('../lib/progress');
+
+API_URL = 'http://en.wikipedia.org/w/api.php';
+timeoutErrorMessages = ['HTTP request timed out.', 'Pool queue is full'];
+
+program
+    .version('0.0.1')
+    .usage('[options]')
+    .description('Wikipedia articles on command line')
+    .option('--log-filename <file>', 'Path to log queries')
+    .parse(process.argv);
+
+program.logFilename = program.logFilename || 'wikipedia_cli_node.log';
+
+function search(query, callback) {
+    var search_params = {
+        'list': 'search',
+        'srprop': '',
+        'srlimit': 10,
+        'limit': 10,
+        'srsearch': query
+    };
+
+    _wiki_request(search_params, function (error, response, body) {
+        if (error) {
+            return callback(error);
+        }
+
+        var raw_results = JSON.parse(body);
+        if (raw_results['error']) {
+            if (timeoutErrorMessages.indexOf(raw_results['error']['info']) !== -1) {
+                return callback(new Error('Network Timeout'));
+            } else {
+                return callback(new Error(raw_results['error']['info']))
+            }
+        }
+
+        if (response.statusCode != 200) {
+            return callback(new Error('Bad Request'));
+        }
+
+        var queryResults = raw_results['query']['search'];
+        if (!queryResults.length) {
+            console.log('No results were found');
+            return;
+        }
+
+        var titles = [];
+        for (var i = 0; i < queryResults.length; i++) {
+            titles.push(queryResults[i]['title']);
+        }
+
+        inquirer.prompt([{
+            type: 'list',
+            name: 'search_term',
+            choices: titles,
+            message: "Choose from the following results"
+        }]).then(function (answers) {
+            callback(undefined, answers['search_term']);
+        });
+    });
+}
+
+inquirer.prompt([{
+    type: 'input',
+    name: 'query',
+    message: 'Search'
+}]).then(function (answers) {
+    async.waterfall([
+        function (callback) {
+            search(answers.query, callback);
+        },
+        function (title, callback) {
+            page(title, callback);
+        },
+        function (page, callback) {
+            fs.appendFile(program.logFilename, page['fullurl'], function (err) {
+                callback(err, page)
+            });
+        },
+        function (page, callback) {
+            fs.writeFile('content.txt', page['extract'], callback);
+        }
+    ], function (err) {
+        if (err) {
+            return handleError(err);
+        }
+    });
+});
+
+function page(title, callback) {
+    var query_params = {
+        'prop': 'info|pageprops|extracts',
+        'explaintext': '',
+        'inprop': 'url',
+        'redirects': '',
+        'titles': title
+    };
+
+    _wiki_request(query_params, function (error, response, body) {
+        if (error) {
+            return callback(error);
+        }
+
+        if (response.statusCode != 200) {
+            return callback(new Error('Bad Request'));
+        }
+
+        var request = JSON.parse(body);
+        var query = request['query'];
+        var pageid = Object.keys(query['pages'])[0];
+        var page = query['pages'][pageid];
+
+        if (page.hasOwnProperty('missing')) {
+            return callback(new Error('Missing page'));
+        }
+
+        if (query.hasOwnProperty('redirects')) {
+            var redirects = query['redirects'][0];
+            var from_title = title;
+
+            if (query.hasOwnProperty('normalized')) {
+                var normalized = query['normalized'][0];
+                assert(normalized['from'] == title);
+                from_title = normalized['to'];
+            }
+
+            assert(redirects['from'] == from_title);
+            return page(redirects['to'], callback);
+        }
+
+        return callback(undefined, page);
+    });
+}
+
+function assert(condition, message) {
+    if (!condition) {
+        message = message || "Assertion failed";
+        if (typeof Error !== "undefined") {
+            throw new Error(message);
+        }
+        throw message; // Fallback
+    }
+}
+
+function handleError(err) {
+    console.log(err);
+    process.exit(1);
+}
+
+function _wiki_request(params, callback) {
+    params['format'] = 'json';
+    if (!params.hasOwnProperty('action')) {
+        params['action'] = 'query';
+    }
+
+    var progress = new Progress();
+    progress.start();
+    request({url: API_URL, qs: params}, callback).on('end', function () {
+        progress.finish();
+    });
+}

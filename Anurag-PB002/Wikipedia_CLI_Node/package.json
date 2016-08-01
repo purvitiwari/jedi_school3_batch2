@@ -1,0 +1,46 @@
+{
+  "name": "wikipedia-cli-node",
+  "description": "Search Wikipedia articles from your terminal",
+  "version": "0.1.0",
+  "homepage": "https://github.com/anuragagarwal561994/wikipedia-cli-node",
+  "author": {
+    "name": "Anurag Agarwal",
+    "url": "git remote add origin https://github.com/anuragagarwal561994/Wikipedia_CLI_Node.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anuragagarwal561994/wikipedia-cli-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anuragagarwal561994/wikipedia-cli-node/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/anuragagarwal561994/wikipedia-cli-node/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": [
+    "cli",
+    "command line"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "wikipedia_cli_node": "./bin/wikipedia_cli_node"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "mocha -R test"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "commander": "^2.9.0",
+    "inquirer": "^1.1.2",
+    "minimist": "~0.0.8",
+    "request": "^2.74.0",
+    "verbalize": "~0.1.1"
+  }
+}
