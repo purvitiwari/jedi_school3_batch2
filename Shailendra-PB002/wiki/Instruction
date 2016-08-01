@@ -1,0 +1,30 @@
+Documentationa and Instruction
+
+Assignment: Write script in two languages which ask mediawiki 
+api to get result for the keyword given in CLI. 
+Writes the resukt URL and time of query into the log file.
+
+Solution:   
+
+		IN RUBY
+
+	1. No extra library is used
+	2. Just run the index.rb file from cmd
+
+
+		IN PYTHON
+
+	1. A library named 'requests' has been used
+	2. Please install 'requests' before running the index.py
+	3. Install using 'pip install requests'   (Use sude if in mac)
+	4. Run the script 'python index.py'
+
+		IN NODE JS
+
+	1. Was trying to do the http get request but was not working fine I will submit later
+
+
+Both scripts runs and writes the URL with timestamp into the same log file named as log.txt
+
+
+

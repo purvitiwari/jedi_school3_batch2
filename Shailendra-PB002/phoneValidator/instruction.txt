@@ -1,0 +1,20 @@
+# Documentation
+# PB-002: Introduction to CLI
+
+
+1. Assignment-1   Create an phone validator in CLI
+
+Solution:  Created the interactive enviorment  in Node JS. Which validates the 
+
+I - It must be 10 digit number
+II- dian Phone numbers which starts from 0
+III - Which starts from +91
+IV- All 10 digit numbers must start from 7,8 or 9.
+
+It also validates the the mobile numbers from China, France US. It uses a nodejs package named “validator”
+
+Please install validator before running 
+——   node index.js 
+
+Install validator as follows -
+——— npm install validator
