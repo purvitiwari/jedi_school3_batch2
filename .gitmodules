@@ -1,0 +1,12 @@
+[submodule "Anurag-PB002/phone-number-validator"]
+	path = Anurag-PB002/phone-number-validator
+	url = https://github.com/anuragagarwal561994/phone-number-validator.git
+[submodule "Anurag-PB002/Wikipedia_CLI"]
+	path = Anurag-PB002/Wikipedia_CLI
+	url = https://github.com/anuragagarwal561994/Wikipedia_CLI.git
+[submodule "Anurag-PB002/Wikipedia_CLI_Node"]
+	path = Anurag-PB002/Wikipedia_CLI_Node
+	url = https://github.com/anuragagarwal561994/Wikipedia_CLI_Node.git
+[submodule "chetan-PB002"]
+	path = chetan-PB002
+	url = https://github.com/kchetan/chetan-PB002.git
