@@ -10,8 +10,12 @@ WIKIPEDIA
 
 Wikipedia is implemented in python and Ruby.
 The Python code requires 'wikipedia' library ('pip install wikipedia')
+
 	python wiki.py Obama
 	or
 	python wiki.py
+	
 The Ruby code reqiure 'wikipedia' client ('gem install wikipedia')
+
 	ruby wiki.py Obama
+	
