@@ -1,0 +1,16 @@
+{
+  "name": "validate_number",
+  "version": "1.0.0",
+  "description": "\"This can be used to validate any number across the globe\"",
+  "main": "validate_mob.js",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "request": "^2.74.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "purvitiwari",
+  "license": "ISC"
+}
