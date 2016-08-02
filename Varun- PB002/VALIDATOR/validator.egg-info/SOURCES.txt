@@ -1,0 +1,6 @@
+validator.egg-info/PKG-INFO
+validator.egg-info/SOURCES.txt
+validator.egg-info/dependency_links.txt
+validator.egg-info/entry_points.txt
+validator.egg-info/requires.txt
+validator.egg-info/top_level.txt
