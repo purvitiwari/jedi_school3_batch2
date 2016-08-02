@@ -1,0 +1,89 @@
+#!/usr/bin/env python
+
+import urllib2
+import sys
+import json
+
+
+def validate_number(number):
+    number = parse_number(number)
+    if number == "Invalid Number":
+        #print number
+        return number
+    base_url = "http://apilayer.net/api/validate?"
+    key = "7e32f32ead835881654d4102259f01e6"
+    country_code = "IN"
+    response_format = "1"
+    try:
+        response = urllib2.urlopen(base_url+"access_key=" + key + "&number=" +
+                number + "&country_code=" + country_code + "&format=" + response_format).read()
+    except urllib2.URLError:
+        print "Connection TimeOut"
+        print "Check your Internet Connection"
+        return "Connection Error"
+    return response
+
+
+def parse_number(number):
+    length = len(number)
+    if 10 > length or length > 13:
+        return "Invalid Number"
+    if length == 13:
+        if number[0] == '+' and number[1] == '9' and number[2] == '1':
+            number = number[3:]
+        else:
+            return "Invalid Number"
+    elif length == 12:
+        if number[0] == '9' and number[1] == '1':
+            number = number[2:]
+        else:
+            return "Invalid Number"
+    elif length == 11:
+        if number[0] == '0':
+            number = number[1:]
+        else:
+            return "Invalid Number"
+    return number
+
+
+def validator(number):
+    response = validate_number(number)
+    if response == "Connection Error":
+        return
+    elif response != "Invalid Number":
+        try:
+            # response = json.loads(response, "utf-8") /// from import json module
+            response = json.loads(response)
+            if response["valid"]:
+                print response["international_format"] + " is a valid " + response["line_type"] + " Number."
+                print "Carrier : " + response["carrier"]
+                print response["location"] + ", " + response["country_name"]
+            else:
+                print "Invalid Number"
+        except json.JSONDecodeError:
+            print "Something Went Wrong."
+    else:
+        print "Invalid Number"
+
+
+def validator_wrapper():
+    """Simple Package written in python that validate mobile and landline numbers of India."""
+    arg_count = len(sys.argv)
+    if arg_count == 1 or ((arg_count == 2 or arg_count == 3) and sys.argv[1] == '-i'):
+        print "Welcome to Python  Number Validator for India"
+        print "Press Ctrl+D to exit"
+        if arg_count == 3:
+            validator(sys.argv[2])
+        while True:
+            try:
+                number = raw_input("Enter Phone Number. :")
+                validator(number)
+            except EOFError:
+                print "\n"
+                break
+    elif arg_count == 2 and sys.argv[1] != '-i':
+        validator(sys.argv[1])
+
+
+if __name__ == '__main__':
+    validator_wrapper()
