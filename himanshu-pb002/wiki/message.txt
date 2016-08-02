@@ -1,0 +1,8 @@
+response.body[3][0]
+https://en.wikipedia.org/wiki/Xyz
+https://en.wikipedia.org/wiki/Xyz
+https://en.wikipedia.org/wiki/Gamehttps:
+//en.wikipedia.org/wiki/Game
+https://en.wikipedia.org/wiki/Gamehttps://en.wikipedia.org/wiki/Game
+https://en.wikipedia.org/wiki/Gae
+https://en.wikipedia.org/wiki/Gamehttps://en.wikipedia.org/wiki/Undefinedhttps://en.wikipedia.org/wiki/Undefinedhttps://en.wikipedia.org/wiki/Undefinedhttps://en.wikipedia.org/wiki/Gamehttps://en.wikipedia.org/wiki/Gamehttps://en.wikipedia.org/wiki/Gamehttps://en.wikipedia.org/wiki/Gamehttps://en.wikipedia.org/wiki/He_Learned_About_Women
