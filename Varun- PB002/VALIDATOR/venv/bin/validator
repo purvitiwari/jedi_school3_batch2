@@ -1,0 +1,10 @@
+#!/Users/witty123/Desktop/validator/venv/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'validator','console_scripts','validator'
+__requires__ = 'validator'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('validator', 'console_scripts', 'validator')()
+    )
